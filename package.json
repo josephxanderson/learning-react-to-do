@@ -13,7 +13,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx webpack && node server.js"
+    "start": "npx webpack && node server.js",
+    "start:dev": "node server.js"
   },
   "homepage": "https://github.com/josephxanderson/learning-react-to-do#readme",
   "engines": {
