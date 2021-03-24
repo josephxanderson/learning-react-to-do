@@ -45,7 +45,9 @@ server.getContentType = url => {
 server.serveStaticContent = (pathname, response) => {
     // Set the content type based on the file extension.
     const contentType = server.getContentType(pathname);
-    response.setHeader('Content-Type', contentType);
+
+    // Set the Content-Type header with character encoding.
+    response.setHeader('Content-Type', contentType + '; charset=UTF-8');
 
     // Read the file and send the response to the browser.
     fs.readFile(`${baseDir}${pathname}`, (error, data) => {
