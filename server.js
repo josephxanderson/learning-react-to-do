@@ -6,6 +6,8 @@ const url = require('url');
 const server = {};
 
 // The base directory to serve files from.
+// The project set-up allows for all source to be browsed.
+// This is OK as this is an educational project.
 const baseDir = path.join(__dirname, './');
 
 // The file types we serve.
