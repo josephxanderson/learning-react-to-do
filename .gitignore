@@ -6,4 +6,4 @@ node_modules
 .env
 package-lock.json
 dist/bundle.js
-dist/bundle.js.LICENSE
+dist/bundle.js.LICENSE.txt
