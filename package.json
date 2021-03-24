@@ -1,0 +1,37 @@
+{
+  "name": "learning-react-to-do",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephxanderson/learning-react-to-do.git"
+  },
+  "bugs": {
+    "url": "https://github.com/josephxanderson/learning-react-to-do/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx webpack && node server.js"
+  },
+  "homepage": "https://github.com/josephxanderson/learning-react-to-do#readme",
+  "engines": {
+    "node": "14.x"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.28.0",
+    "webpack-cli": "^4.5.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  }
+}
