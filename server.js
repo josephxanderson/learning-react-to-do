@@ -1,22 +1,69 @@
-const basePath = __dirname;
+// Thanks to: https://medium.com/@amitgupta15/node-js-server-without-express-bf22903355ad
+
 const http = require('http');
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
+const url = require('url');
 
-// Create the Node.js server.
-const server = http.createServer(function(req, res) {
-    // Find the file based on the path given. Note this is OK for development purposes,
-    // but has a recursive bug which could create vulnerabilities!
-    const stream = fs.createReadStream(path.join(basePath, req.url));
+const server = {};
+const baseDir = path.join(__dirname, './');
 
-    stream.on('error', function() {
-        res.writeHead(404);
-        res.end();
-    });
+const mimeTypes = {
+    '.html': 'text/html',
+    '.jpg': 'image/jpeg',
+    '.jpeg': 'image/jpeg',
+    '.css': 'text/css',
+    '.js': 'text/javascript',
+    '.png': 'image/png',
+    '.ico': 'image/x-icon',
+    '.json': 'application/json',
+};
 
-	res.writeHead(200, { 'content-type': 'text/html' });
-    stream.pipe(res);
+server.getContentType = url => {
+  // Set the default content type to application/octet-stream
+    let contentType = 'application/octet-stream';
+
+    const extname = path.extname(url);
+
+    for (let key in mimeTypes) {
+        if (mimeTypes.hasOwnProperty(key)) {
+            if (extname === key) {
+                contentType = mimeTypes[key];
+            }
+        }
+    }
+
+    return contentType;
+};
+
+server.serveStaticContent = (pathname, response) => {
+  // Get content type based on the file extension
+  const contentType = server.getContentType(pathname);
+
+  response.setHeader('Content-Type', contentType);
+
+  fs.readFile(`${baseDir}${pathname}`, (error, data) => {
+    if (!error) {
+        response.writeHead(200);
+        response.end(data);
+    } else {
+        response.writeHead(404);
+        response.end('404 - File Not Found');
+    }
+  });
+};
+
+// Create the server.
+const httpServer = http.createServer((request, response) => {
+    const pathname = url.parse(request.url, false).pathname;
+    server.serveStaticContent(pathname, response);
 });
 
-// Start the server with the specified port.
-server.listen(process.env.PORT || 5000);
+server.init = (port, host) => {
+    httpServer.listen(port, host, () => {
+        console.log(`Server is listening at http://${host}:${port}`);
+    });
+};
+
+// Start the server.
+server.init(process.env.PORT || 5000, 'localhost');
