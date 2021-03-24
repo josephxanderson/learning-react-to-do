@@ -4,17 +4,37 @@ import ReactDOM from 'react-dom';
 import Header from './Header';
 
 const App = () => {
+	const date = new Date();
+	const hours = date.getHours();
+	let timeOfDayGreeting;
+	let emoji;
 
-	const firstName = 'Joseph';
-	const lastName = 'Anderson';
+	// Set the time of day and emoji.
+	if (hours >= 5 && hours < 12) {
+		timeOfDayGreeting = 'Good morning';
+		emoji = '🌅';
+	} else if (hours >= 12 && hours < 16) {
+		timeOfDayGreeting = 'Good afternoon';
+		emoji = '☀️';
+	} else if (hours >= 16 && hours < 20) {
+		timeOfDayGreeting = 'Good evening';
+		emoji = '🌆'
+	} else if ((hours >= 0 && hours < 5) || hours >= 20) {
+		timeOfDayGreeting = 'Good evening';
+		emoji = '🌙'
+	} else {
+		// Fallback.
+		timeOfDayGreeting = 'Hello';
+		emoji = '👋🏼'
+	}
 
 	return (
 		<main>
 			<Header />
 
-			<h5>Hi {firstName + ' ' + lastName}!</h5>
+			<h1>{`${emoji} ${timeOfDayGreeting}.`}</h1>
 
-			<h1>Task List</h1>
+			<h2>Task List</h2>
 
 			<p>
 				<input type="checkbox"></input>
