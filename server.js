@@ -23,7 +23,7 @@ const mimeTypes = {
 
 server.getContentType = url => {
     // Set the default content type.
-    let contentType = 'application/json';
+    let contentType = 'text/plain';
 
     // Get the extension of the URL.
     const extname = path.extname(url);
